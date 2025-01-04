@@ -22,6 +22,11 @@ const main = async () => {
 main().catch(err => {
     console.log(err);
 });
+
+app.get('/', (req, res)=> {
+    res.send("Hello world");
+})
+
 app.post('/api/v1/signin', async (req, res) => {
     const specialCharRegex = /[^a-zA-Z0-9]/;
     const mySchema = zod_1.z.object({
@@ -239,6 +244,8 @@ app.get('/api/v1/share/:link', async (req, res) => {
         });
     }
 });
-app.listen(3000, () => {
+
+
+app.listen(process.env.PORT || 3000 , () => {
     console.log("sever running at port 3000");
 });
