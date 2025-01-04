@@ -4,9 +4,10 @@ import { useRef, useState } from "react"
 import ProjectLogo from "./ui/ProjectLogo";
 import axios from "axios";
 import { SERVER_URL } from "../config";
-import { Link } from "react-router";
+import { Link, useNavigate} from "react-router";
 
 const SignUp = () => {
+  const navigate = useNavigate();
 
   const [err, setErr] = useState("");
 
@@ -23,7 +24,7 @@ const SignUp = () => {
 
     if(response.status === 200) {
         localStorage.setItem('token', response.data.token);
-        console.log("Login Success");
+        navigate('/dashboard')
     }
     }
     catch(e : any) {

@@ -40,7 +40,7 @@ const SignUp = () => {
             <Input type = "text" title = "Username" refer = {usernameref}/>
             <Input type = "password" title = "Password" refer = {passwrodref}/>
             {err && <p className="text-sm text-red-600">{err}</p>}
-            <Button btnType = "Submit" size="md" variant = "primary" text = "Sign Up" />
+            <Button type = "Submit" size="md" variant = "primary" text = "Sign Up" />
            <Link to = '/login' ><p className="text-main-dark hover:underline cursor-pointer">Already have an account?, Login!</p></Link>
          </form>
     </div>
