@@ -20,6 +20,7 @@ function useContent(serverUrl: string) {
                 if (response.status === 200) {
                     const data = response.data;
                     setContent(data);
+                    setError(null);
                 }
             } catch (e) {
                 if(axios.isCancel(e)) {
@@ -34,13 +35,11 @@ function useContent(serverUrl: string) {
                 setIsLoading(false);
             }
         }
-
-        const interval = setInterval(()=> {
+        
+      
             fetchData();
-        }, 4000);
 
         return () => {
-            clearInterval(interval);
             controller.abort();
         }
 

@@ -1,14 +1,16 @@
 import Card from "./ui/Card"
 import useContent from "../hooks/useContent"
 import { SERVER_URL } from "../config";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import Loader from "./ui/Loader";
+import { contentState } from "../atoms/atom";
+import { useRecoilState } from "recoil";
 const Container = () => {
 
+  
   const {error, content, isLoading} = useContent(`${SERVER_URL}/content`);
 
-  const [postContent, setPostContent] = useState([]);
-
+  const [postContent, setPostContent] = useRecoilState(contentState);
 
   useEffect(()=> {
     setPostContent([...content])

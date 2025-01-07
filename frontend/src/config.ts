@@ -1,1 +1,1 @@
-export const SERVER_URL = "https://backend-five-bice-12.vercel.app/api/v1"
+export const SERVER_URL = "http://localhost:3000/api/v1"

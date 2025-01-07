@@ -1,9 +1,12 @@
 import { IoCloseSharp } from "react-icons/io5"
 import Input from "./ui/Input";
 import Button from "./ui/Button";
-import { useState, useRef } from "react";
+import { useState, useRef} from "react";
 import axios from "axios";
 import { SERVER_URL } from "../config";
+import { contentState } from "../atoms/atom";
+import { useSetRecoilState } from "recoil";
+import { fetchData } from "../api/content";
 
 
 enum contentTypes {
@@ -13,6 +16,8 @@ enum contentTypes {
 }
 
 const AddContent = ({isOpen ,updateMenu}: {isOpen: boolean, updateMenu: ()=> void}) => {
+
+  const setPostContent = useSetRecoilState(contentState);
 
   const titleRef = useRef();
   const linkRef = useRef();
@@ -51,12 +56,21 @@ const AddContent = ({isOpen ,updateMenu}: {isOpen: boolean, updateMenu: ()=> voi
         }
       })
       if(response.status === 200) {
-        alert('Content Added!');
+        ;(async ()=> {
+          const data = await fetchData(`${SERVER_URL}/content`);
+          if(data) {
+            setPostContent(data);
+          }
+          else{
+            console.log("cannot fetch data");
+          }
+        })();
+        
         updateMenu();
       }
     }
-    catch(e) {
-      console.log(e);
+    catch(e: any) {
+      setErr(e.response.data.message)
     }
   }
 
