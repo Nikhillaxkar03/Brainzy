@@ -1,7 +1,7 @@
 import Card from "./ui/Card";
 import useContent from "../hooks/useContent";
 import { SERVER_URL } from "../config";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import Loader from "./ui/Loader";
 import { contentState, contentTypeState } from "../atoms/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
