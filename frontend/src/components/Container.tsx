@@ -1,47 +1,64 @@
-import Card from "./ui/Card"
-import useContent from "../hooks/useContent"
+import Card from "./ui/Card";
+import useContent from "../hooks/useContent";
 import { SERVER_URL } from "../config";
-import { useEffect} from "react";
+import { useEffect, useState } from "react";
 import Loader from "./ui/Loader";
-import { contentState } from "../atoms/atom";
-import { useRecoilState } from "recoil";
+import { contentState, contentTypeState } from "../atoms/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 const Container = () => {
-
-  
-  const {error, content, isLoading} = useContent(`${SERVER_URL}/content`);
+  const { error, content, isLoading } = useContent(`${SERVER_URL}/content`);
 
   const [postContent, setPostContent] = useRecoilState(contentState);
 
-  useEffect(()=> {
-    setPostContent([...content])
-}, [content, setPostContent]);
+  const value = useRecoilValue(contentTypeState);
 
-if(isLoading) {
-  return <Loader />
-}
+  useEffect(() => {
+    setPostContent([...content]);
+  }, [content, setPostContent]);
 
-  if(error || postContent.length === 0) {
-    return <h1 className="text-2xl text-center my-10 text-gray-600">{error || "Data is not available"}</h1>
+  if (isLoading) {
+    return <Loader />;
   }
 
-  if(content.length === 0) {
-    return <h1 className="text-2xl text-center my-10 text-gray-600">No data available!</h1>
-  } 
-  
+  if (postContent.length === 0 && error) {
+    return (
+      <h1 className="text-2xl text-center my-10 text-gray-600">
+        {error || "Data is not available"}
+      </h1>
+    );
+  }
+
   return (
     <div className="flex flex-wrap items-start">
-      {
-        postContent.map((item: any)=> {
-          return (
-          <Card key={item._id} setContent = {setPostContent} id = {item._id} titleIcon = {item.type} 
-          type = {item.type} 
-          titleHead = {item.title}
-           cardbody = {item.link} />
-          )
-        })
-      }
-  </div>
-  )
-}
+      {(() => {
+        const filteredContent =
+          value === "home"
+            ? postContent
+            : postContent.filter((item: any) => item.type === value);
 
-export default Container
+        if (filteredContent.length === 0) {
+          console.log("Filtered array is empty.");
+          return (
+            <p className="text-xl text-center my-10 text-gray-600">
+              No posts available for the selected filter.
+            </p>
+          );
+        }
+
+        return filteredContent.map((item: any) => (
+          <Card
+            key={item._id}
+            setContent={setPostContent}
+            id={item._id}
+            titleIcon={item.type}
+            type={item.type}
+            titleHead={item.title}
+            cardbody={item.link}
+          />
+        ));
+      })()}
+    </div>
+  );
+};
+
+export default Container;

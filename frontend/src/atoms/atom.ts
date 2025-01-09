@@ -5,4 +5,9 @@ const contentState = atom<any>({
     default: []
 })
 
-export {contentState};
+const contentTypeState = atom<string | undefined>({
+    key: "contentType",
+    default: 'home'
+})
+
+export {contentState, contentTypeState};

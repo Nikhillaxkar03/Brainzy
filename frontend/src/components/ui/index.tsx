@@ -1,34 +1,40 @@
-import { FiTwitter, FiYoutube } from "react-icons/fi"
-import { HiOutlineDocumentText } from "react-icons/hi"
+import { FiTwitter, FiYoutube } from "react-icons/fi";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import { PiLinkSimpleBold } from "react-icons/pi";
-import { FaHashtag } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
 
 const sidemenuData = [
-    {
-        logo: <FiTwitter />,
-        title: 'Tweets',
-        key: "tw"
-    }, 
-    {
-        logo: <FiYoutube />,
-        title: 'Videos',
-        key: "yt"
-    }, 
-    {
-        logo: <HiOutlineDocumentText />,
-        title: 'Documents',
-        key: "dc"
-    }, 
-    {
-        logo: <PiLinkSimpleBold />,
-        title: 'Links',
-        key: "li"
-    },
-    {
-        logo: <FaHashtag />,
-        title: 'Tags',
-        key: "tg"
-    }
-]
+  {
+    logo: <IoHomeOutline />,
+    title: "Home",
+    type: "home",
+    key: "hm",
+  },
 
-export {sidemenuData}
+  {
+    logo: <FiTwitter />,
+    title: "Tweets",
+    type: "twitter",
+    key: "tw",
+  },
+  {
+    logo: <FiYoutube />,
+    title: "Videos",
+    type: "youtube",
+    key: "yt",
+  },
+  {
+    logo: <HiOutlineDocumentText />,
+    title: "Documents",
+    type: "article",
+    key: "dc",
+  },
+  {
+    logo: <PiLinkSimpleBold />,
+    title: "Links",
+    type: 'website',
+    key: "li",
+  },
+];
+
+export { sidemenuData };

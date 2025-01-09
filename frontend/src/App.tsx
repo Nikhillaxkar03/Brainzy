@@ -3,6 +3,7 @@ import SignUp from "./components/SignUp"
 import Login from "./components/Login"
 import Home from "./components/Home"
 import { BrowserRouter,Routes, Route} from "react-router"
+import { Toaster } from "react-hot-toast"
 import { RecoilRoot } from "recoil"
 
 
@@ -11,6 +12,11 @@ function App() {
   return (
   <>
   <RecoilRoot>
+  <Toaster toastOptions = {{
+    duration: 1000
+  }}
+   position="bottom-right"
+  reverseOrder={false} />
   <BrowserRouter>
   <Routes>
     <Route path = '/' element = {<Home />} />

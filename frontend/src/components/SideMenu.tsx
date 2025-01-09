@@ -3,6 +3,7 @@ import Button from "./ui/Button";
 import { sidemenuData } from "./ui";
 import ProjectLogo from "./ui/ProjectLogo";
 import { useNavigate } from "react-router";
+import toast from 'react-hot-toast'
 
 const SideMenu = () => {
 
@@ -14,13 +15,15 @@ const SideMenu = () => {
        <div className="mt-8">
         {
             sidemenuData.map( e => {
-                return <SideMenuItem key={e.key} itemIcon={e.logo} title={e.title} />
+                return <SideMenuItem key={e.key} type = {e.type} itemIcon={e.logo} title={e.title} />
             })
         }
         <div className="m-auto absolute bottom-3 left-4">
         <Button variant="danger" size="lg" text="Logout" onClick={()=> {
             localStorage.removeItem('token');
-            navigate('/');
+            toast.success("Logout Succesfull");
+            setTimeout(()=> navigate('/'), 1000);
+            
         }}></Button>
         </div>
        </div>
