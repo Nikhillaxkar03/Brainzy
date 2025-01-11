@@ -3,9 +3,10 @@ import useContent from "../hooks/useContent";
 import { SERVER_URL } from "../config";
 import { useEffect} from "react";
 import Loader from "./ui/Loader";
+import Share from "./Share";
 import { contentState, contentTypeState } from "../atoms/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
-const Container = () => {
+const Container = ({isShare}: {isShare: Boolean}) => {
   const { error, content, isLoading } = useContent(`${SERVER_URL}/content`);
 
   const [postContent, setPostContent] = useRecoilState(contentState);
@@ -29,7 +30,8 @@ const Container = () => {
   }
 
   return (
-    <div className="flex flex-wrap items-start">
+    <div className="flex flex-wrap relative items-start">
+      {isShare && <Share />}
       {(() => {
         const filteredContent =
           value === "home"

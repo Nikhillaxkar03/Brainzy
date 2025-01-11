@@ -5,6 +5,7 @@ import ProjectLogo from "./ui/ProjectLogo";
 import axios from "axios";
 import { SERVER_URL } from "../config";
 import { Link, useNavigate} from "react-router";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ const SignUp = () => {
 
     if(response.status === 200) {
         localStorage.setItem('token', response.data.token);
-        navigate('/dashboard')
+        toast.success("Login successful");
+        setTimeout(()=> navigate('/dashboard'), 1000) 
     }
     }
     catch(e : any) {

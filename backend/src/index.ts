@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 
-import mongoose from 'mongoose';
+import mongoose, { MongooseError } from 'mongoose';
 
 import bycrypt from 'bcrypt';
 
@@ -131,8 +131,17 @@ app.post('/api/v1/add-content', userAuth, async (req, res)=> {
             message: "Content added successfully"
         })
     }
-    catch(e){
-        console.log(e);
+    catch(e: any){
+        if(e.code === 11000) {
+            res.status(409).json({
+                message: "following link is already exist"
+            })
+        }
+        else{
+            res.status(500).json({
+                message: "Server Error"
+            })
+        }
     }
 })
 
@@ -192,7 +201,7 @@ app.post('/api/v1/share', userAuth, async (req, res)=> {
             
             if(user) {
                 res.status(200).json({
-                    link: "share/"+ user.hash
+                    link: user.hash
                 })
             }
             else{
@@ -202,7 +211,7 @@ app.post('/api/v1/share', userAuth, async (req, res)=> {
                 userId: req.userId
             })
             res.status(200).json({
-                link: "share/" + hash
+                link: hash
             })
         }
         }

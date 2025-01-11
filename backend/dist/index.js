@@ -22,11 +22,6 @@ const main = async () => {
 main().catch(err => {
     console.log(err);
 });
-
-app.get('/', (req, res)=> {
-    res.send("Hello world");
-})
-
 app.post('/api/v1/signin', async (req, res) => {
     const specialCharRegex = /[^a-zA-Z0-9]/;
     const mySchema = zod_1.z.object({
@@ -116,7 +111,16 @@ app.post('/api/v1/add-content', userAuth_1.userAuth, async (req, res) => {
         });
     }
     catch (e) {
-        console.log(e);
+        if (e.code === 11000) {
+            res.status(409).json({
+                message: "following link is already exist"
+            });
+        }
+        else {
+            res.status(500).json({
+                message: "Server Error"
+            });
+        }
     }
 });
 app.get('/api/v1/content', userAuth_1.userAuth, async (req, res) => {
@@ -170,7 +174,7 @@ app.post('/api/v1/share', userAuth_1.userAuth, async (req, res) => {
             });
             if (user) {
                 res.status(200).json({
-                    link: "share/" + user.hash
+                    link: user.hash
                 });
             }
             else {
@@ -180,7 +184,7 @@ app.post('/api/v1/share', userAuth_1.userAuth, async (req, res) => {
                     userId: req.userId
                 });
                 res.status(200).json({
-                    link: "share/" + hash
+                    link: hash
                 });
             }
         }
@@ -244,8 +248,6 @@ app.get('/api/v1/share/:link', async (req, res) => {
         });
     }
 });
-
-
-app.listen(process.env.PORT || 3000 , () => {
+app.listen(3000, () => {
     console.log("sever running at port 3000");
 });

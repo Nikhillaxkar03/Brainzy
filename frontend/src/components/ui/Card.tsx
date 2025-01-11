@@ -9,6 +9,7 @@ import TwitterEmbed from "./TwitterEmbed.tsx"
 import DefaultEmbed from "./DefaultEmbed.tsx"
 import axios from "axios"
 import { SERVER_URL } from "../../config.ts"
+import toast from "react-hot-toast"
 
 interface cardProps {
   titleIcon: string,
@@ -35,6 +36,7 @@ if(setContent) {
  const filterArr = prevItem.filter((item: any)=> {
       return item._id !== id
     })
+    toast.success("Post Removed")
     return filterArr;
   })
 }

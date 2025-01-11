@@ -2,6 +2,7 @@ import ProjectLogo from "./ui/ProjectLogo";
 import { Fade } from "react-awesome-reveal";
 import Button from "./ui/Button"
 import { useNavigate } from "react-router";
+import toast from 'react-hot-toast'
 
 
 const Home = () => {
@@ -31,11 +32,13 @@ const Home = () => {
 
                 console.log("worink")
 
-                if(authorization) {
-                    navigate('/dashboard')
+                if(authorization) { 
+                  toast.success("User Autharized");
+                  setTimeout(()=> navigate('/dashboard'), 1000)                 
                 }
                 else{
-                    navigate('/signup')
+                  toast.error("User Not Autharized");
+                  setTimeout(()=> navigate('/signup'), 1000)     
                 }
             }}/>
         </div>

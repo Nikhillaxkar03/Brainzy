@@ -5,6 +5,7 @@ import ProjectLogo from "./ui/ProjectLogo";
 import axios from "axios";
 import { SERVER_URL } from "../config";
 import { Link, useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
 
@@ -23,7 +24,8 @@ const SignUp = () => {
       password: passwrodref.current
     })
     if(response.status === 200) {
-      navigate('/login')
+      toast.success("Sign-up Successful");
+      setTimeout(()=> navigate('/login'), 1000)
     }
     }
     catch(e : any) {

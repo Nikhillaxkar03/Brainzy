@@ -19,7 +19,7 @@ const LinkSchema = new mongoose_1.Schema({
     userId: { type: String, required: true }
 });
 const TagSchema = new mongoose_1.Schema({
-    title: { type: String, required: true, unique: true }
+    title: { type: String, required: true }
 });
 //Models
 const userModel = (0, mongoose_1.model)('User', UserSchema);

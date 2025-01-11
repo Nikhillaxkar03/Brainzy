@@ -7,6 +7,7 @@ import { SERVER_URL } from "../config";
 import { contentState } from "../atoms/atom";
 import { useSetRecoilState } from "recoil";
 import { fetchData } from "../api/content";
+import toast from "react-hot-toast";
 
 
 enum contentTypes {
@@ -36,7 +37,6 @@ const AddContent = ({isOpen ,updateMenu}: {isOpen: boolean, updateMenu: ()=> voi
 
     if(!title || !link || !type) {
       setErr("Fill all the fields");
-      return
     }
 
     else{
@@ -56,6 +56,7 @@ const AddContent = ({isOpen ,updateMenu}: {isOpen: boolean, updateMenu: ()=> voi
         }
       })
       if(response.status === 200) {
+        toast.success("Content Added");
         ;(async ()=> {
           const data = await fetchData(`${SERVER_URL}/content`);
           if(data) {

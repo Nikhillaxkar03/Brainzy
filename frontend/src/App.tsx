@@ -13,9 +13,9 @@ function App() {
   <>
   <RecoilRoot>
   <Toaster toastOptions = {{
-    duration: 1000
+    duration: 1500
   }}
-   position="bottom-right"
+   position="top-center"
   reverseOrder={false} />
   <BrowserRouter>
   <Routes>
